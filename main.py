@@ -29,7 +29,6 @@ for coordinate in coordinates:
 # model.save('neural/model/model.h5')
 
 # --------Распознавание-------------------
-count_imgs = 7
 model = keras.models.load_model('neural/model/model.h5')
 msg = ""
 for i in range(count_imgs - 2):
