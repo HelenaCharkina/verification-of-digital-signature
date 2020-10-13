@@ -4,7 +4,7 @@ from PIL import Image
 
 from pictureCropper.CropImage import crop_image
 
-with open("coordinates.json", "r") as read_file:
+with open("../coordinates.json", "r") as read_file:
     data = json.load(read_file)
 
 img = Image.open("source/img.png")

@@ -1,4 +1,7 @@
-def crop_image(img, params):
+import cv2
+
+
+def crop_image(img, params, len):
 
     widthImg, heightImg = img.size
 
@@ -9,7 +12,14 @@ def crop_image(img, params):
 
     area = (x, y, x + width, y + height)
     cropped_img = img.crop(area)
-    # cropped_img.show()
-    # k = 2
-    # out = cropped_img.resize([int(k * s) for s in cropped_img.size])
-    cropped_img.save("dataImages/"+params["number"]+".png")
+
+    if str(len) == params["number"]:
+
+        area_r = (x, y, x + width, y + height/2)
+        r_img = img.crop(area_r)
+        r_img.save("dataImages/r.png")
+        area_s = (x, y + height/2, x + width, y + height)
+        s_img = img.crop(area_s)
+        s_img.save("dataImages/s.png")
+    else:
+        cropped_img.save("dataImages/"+params["number"]+".png")

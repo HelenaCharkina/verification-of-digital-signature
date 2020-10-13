@@ -6,8 +6,8 @@ def find_letters(image_file: str, out_size=28):
     image_file = image_file
     img = cv2.imread(image_file)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY)
-    img_erode = cv2.erode(gray, np.ones((3, 5), np.uint8), iterations=1)
+    ret, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+    img_erode = cv2.erode(thresh, np.ones((2, 2), np.uint8), iterations=1)
 
     # Get contours
     contours, hierarchy = cv2.findContours(img_erode, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)

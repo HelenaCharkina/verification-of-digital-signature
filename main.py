@@ -11,28 +11,36 @@ from neural.Neural import create_cnn
 from neural.TrainNeural import train_model
 from pictureCropper.CropImage import crop_image
 
-#--------Получение картинок данных-------------------
-# with open("pictureCropper/coordinates.json", "r") as read_file:
-#     data = json.load(read_file)
-#
-# img = Image.open("source/img.png")
-#
-# coordinates = data["fields"]
-# for coordinate in coordinates:
-#     crop_image(img, coordinate)
+# --------Получение картинок данных-------------------
+with open("coordinates.json", "r") as read_file:
+    data = json.load(read_file)
 
-#--------Обучение-------------------
+img = Image.open("source/new_sign.jpg")
+
+coordinates = data["fields"]
+count_imgs = len(coordinates)
+for coordinate in coordinates:
+    crop_image(img, coordinate, count_imgs)
+
+
+# --------Обучение-------------------
 # model = create_cnn()
 # train_model(model)
 # model.save('neural/model/model.h5')
 
-#--------Распозавание-------------------
+# --------Распознавание-------------------
+count_imgs = 7
 model = keras.models.load_model('neural/model/model.h5')
-#result = get_string(model, "dataImages/3.png")
-result = get_string(model, "test digit/0.png")
-print(result)
+msg = ""
+for i in range(count_imgs - 2):
+    msg += get_string(model, "dataImages/" + (i + 1).__str__() + ".png")
+    msg += "|"
 
-#--------Генерация ключей-------------------
+r = int(get_string(model, "dataImages/r.png"))
+s = int(get_string(model, "dataImages/s.png"))
+
+
+# --------Генерация ключей-------------------
 # keys = generate_keys()
 # keys = keys['Keys']
 # data = {
@@ -49,7 +57,7 @@ print(result)
 # keys = generate_keys()
 # keys = keys['Keys']
 #
-# r, s = encrypt(keys, result) # здесь нужен закрытый ключ
+# r, s = encrypt(keys, msg) # здесь нужен закрытый ключ
 # data = {
 #     'p': keys.p,
 #     'g': keys.g,
@@ -59,15 +67,19 @@ print(result)
 # with open("keys.json", "w") as write_file:
 #     json.dump(data, write_file)
 #
+# print("r ", r)
+# print("s ", s)
+
+#
 # #--------Проверка подписи-------------------
-# with open("keys.json", "r") as read_file:
-#     data = json.load(read_file)
 #
-# keys = Keys()
-# keys.p = data["p"]
-# keys.g = data["g"]
-# keys.public_key = data["public_key"]
-#
-# decrypt = decrypt(keys, r, s, result)
+with open("keys.json", "r") as read_file:
+    data = json.load(read_file)
 
+keys = Keys()
+keys.p = data["p"]
+keys.g = data["g"]
+keys.public_key = data["public_key"]
 
+decrypt = decrypt(keys, r, s, msg)
+print(decrypt)
