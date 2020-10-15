@@ -57,7 +57,7 @@ def train_model(model):
 
  # Оценим модель на тестовых данных, используя "evaluate"
     print('\n# Оцениваем на тестовых данных')
-    results = model.evaluate(X_test, y_test_cat, batch_size=128)
+    results = model.evaluate(X_test, y_test_cat, batch_size=1024)
     print('test loss, test acc:', results)
 
     # Сгенерируем прогнозы (вероятности - выходные данные последнего слоя)

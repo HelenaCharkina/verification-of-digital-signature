@@ -48,7 +48,7 @@ def find_letters(image_file: str, out_size=28):
     # cv2.imshow("Gray", gray)
     # cv2.imshow("thresh", thresh)
     # cv2.imshow("img_erode", img_erode)
-    cv2.imshow("Output", output)
+    # cv2.imshow("Output", output)
     # cv2.imshow("0", letters[0][2])
     # cv2.imshow("1", letters[1][2])
     # cv2.imshow("2", letters[2][2])
@@ -59,5 +59,5 @@ def find_letters(image_file: str, out_size=28):
     # cv2.imshow("7", letters[7][2])
     # cv2.imshow("8", letters[8][2])
     # cv2.imshow("9", letters[9][2])
-    cv2.waitKey(0)
+    # cv2.waitKey(0)
     return letters
